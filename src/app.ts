@@ -6,42 +6,36 @@ app.use(bodyParser.json());
 
 interface RequestData {
   data: string;
-  getV1?: (req: Request, res: Response) => object;
-  getV2?: (req: Request, res: Response) => object;
+  getParsed: (req: Request, res: Response) => object;
 }
 
-var parse1: RequestData = {
+var parseData: RequestData = {
   data: "JOHN0000MICHAEL0009994567",
-  getV1: function(req: Request, res: Response) {
-    var input = this.data;
-    var letters = input.match(/[A-Z]+/gm);
-    var zeros = input.match(/[\b0]+/gm);
-    var output = {
-      statusCode: res.statusCode,
-      data: {
-        firstName: `${letters[0] + zeros[0]}`,
-        lastName: `${letters[1] + zeros[1]}`,
-        clientId: input.match(/[^A-Z0]+/gm)[0]
-      }
-    };
-    return output;
-  }
-};
-
-var parse2: RequestData = {
-  data: "JOHN0000MICHAEL0009994567",
-  getV2: function(req: Request, res: Response) {
-    var input = this.data;
-    var letters = input.match(/[A-Z]+/gm);
-    var id = input.match(/[^A-Z0]+/gm);
-    var output = {
-      statusCode: res.statusCode,
-      data: {
-        firstName: letters[0],
-        lastName: letters[1],
-        clientId: id[0].slice(0, 3) + "-" + id[0].slice(3)
-      }
-    };
+  getParsed: function(req: Request, res: Response) {
+    var output: object,
+      input: string = this.data,
+      letters: any = input.match(/[A-Z]+/gm),
+      zeros: any = input.match(/[\b0]+/gm),
+      id: any = input.match(/[^A-Z0]+/gm);
+    if (req.path === "/api/v1/parse") {
+      output = {
+        statusCode: res.statusCode,
+        data: {
+          firstName: `${letters[0] + zeros[0]}`,
+          lastName: `${letters[1] + zeros[1]}`,
+          clientId: input.match(/[^A-Z0]+/gm)[0]
+        }
+      };
+    } else {
+      output = {
+        statusCode: res.statusCode,
+        data: {
+          firstName: letters[0],
+          lastName: letters[1],
+          clientId: id[0].slice(0, 3) + "-" + id[0].slice(3)
+        }
+      };
+    }
     return output;
   }
 };
@@ -53,12 +47,11 @@ app
   })
   .post(function(req: Request, res: Response) {
     try {
-      res.json(parse1.getV1(req, res));
+      res.json(parseData.getParsed(req, res));
     } catch (err) {
       console.log(err.message);
     }
   });
-
 app
   .route("/api/v2/parse")
   .get(function(req: Request, res: Response) {
@@ -66,7 +59,7 @@ app
   })
   .post(function(req: Request, res: Response) {
     try {
-      res.json(parse2.getV2(req, res));
+      res.json(parseData.getParsed(req, res));
     } catch (err) {
       console.log(err.message);
     }
