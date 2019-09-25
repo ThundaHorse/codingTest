@@ -1,8 +1,10 @@
 import express, { Application, Request, Response, response } from "express";
 import bodyParser from "body-parser";
-const path = require("path");
+const path: any = require("path");
 const app: Application = express();
 app.use(bodyParser.json());
+
+const testString: string = "JOHN0000MICHAEL0009994567";
 
 interface StringToParse {
   data: string;
@@ -18,7 +20,7 @@ class ParseString implements StringToParse {
       );
     this.data = data;
   }
-  v1Parse() {
+  v1Parse(): object {
     var output: object,
       letters: any = this.data.match(/[A-Z]+/gm),
       zeros: any = this.data.match(/[\b0]+/gm),
@@ -32,7 +34,7 @@ class ParseString implements StringToParse {
       };
     return output;
   }
-  v2Parse() {
+  v2Parse(): object {
     var output: object,
       letters: any = this.data.match(/[A-Z]+/gm),
       id: any = this.data.match(/[^A-Z0]+/gm);
@@ -48,8 +50,6 @@ class ParseString implements StringToParse {
   }
 }
 
-var testString: string = "JOHN0000MICHAEL0009994567";
-
 app
   .route("/api/v1/parse")
   .get((req: Request, res: Response) => {
@@ -57,7 +57,7 @@ app
   })
   .post((req: Request, res: Response) => {
     try {
-      var newRequest = new ParseString(testString);
+      var newRequest: ParseString = new ParseString(testString);
       res.json(newRequest.v1Parse());
     } catch (err) {
       console.log(err.message);
@@ -71,7 +71,7 @@ app
   })
   .post((req: Request, res: Response) => {
     try {
-      var newRequest = new ParseString(testString);
+      var newRequest: ParseString = new ParseString(testString);
       res.json(newRequest.v2Parse());
     } catch (err) {
       console.log(err.message);
