@@ -39,16 +39,9 @@ var parse2: RequestData = {
       data: {
         firstName: letters[0],
         lastName: letters[1],
-        clientId: ""
+        clientId: id[0].slice(0, 3) + "-" + id[0].slice(3)
       }
     };
-    for (var i = 0; i < id[0].length; i++) {
-      var ele = id[0][i];
-      output.data.clientId += ele;
-      if (i == 2) {
-        output.data.clientId += "-";
-      }
-    }
     return output;
   }
 };
