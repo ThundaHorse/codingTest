@@ -13,7 +13,9 @@ class ParseString implements StringToParse {
   parseEndpoint: (req: express.Request, res: express.Response) => object;
   constructor(public data: string) {
     if (this.data.length < 25)
-      throw new Error("Please re-check supplied string to parse!");
+      throw new Error(
+        "Please re-check supplied string to parse! Given string is 'JOHN0000MICHAEL0009994567'"
+      );
     this.data = data;
   }
   v1Parse() {
