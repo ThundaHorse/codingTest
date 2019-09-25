@@ -10,7 +10,7 @@ interface StringToParse {
 }
 
 class ParseString implements StringToParse {
-  parseEndpoint: (req: express.Request, res: express.Response) => object;
+  parseEndpoint: (req: Request, res: Response) => object;
   constructor(public data: string) {
     if (this.data.length < 25)
       throw new Error(
