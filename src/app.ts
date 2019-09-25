@@ -12,6 +12,8 @@ interface StringToParse {
 class ParseString implements StringToParse {
   parseEndpoint: (req: express.Request, res: express.Response) => object;
   constructor(public data: string) {
+    if (this.data.length < 25)
+      throw new Error("Please re-check supplied string to parse!");
     this.data = data;
   }
   v1Parse() {
@@ -45,6 +47,7 @@ class ParseString implements StringToParse {
 }
 
 var testString: string = "JOHN0000MICHAEL0009994567";
+
 app
   .route("/api/v1/parse")
   .get((req: Request, res: Response) => {
