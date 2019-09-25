@@ -13,21 +13,25 @@
   <body>
     <div class="container">
       <br />
-      <form id="parseForm" method="post" action="/api/v1/parse">
-        <h1>Parser for V1</h1>
-        <p>String to parse: JOHN0000MICHAEL0009994567</p>
-        <button id="myBtn" class="btn btn-round btn-primary" value="submit">
-          Parse!
-        </button>
-      </form>
       <br />
-      <form id="parseFormV2" method="post" action="/api/v2/parse">
-        <h1>Parser for V2</h1>
-        <p>String to parse: JOHN0000MICHAEL0009994567</p>
-        <button id="myBtnV2" class="btn btn-round btn-primary" value="submit">
-          Parse!
-        </button>
-      </form>
+      <span id="leftBox" style="float: left;">
+        <form id="parseForm" method="post">
+          <h1>Parser for V1</h1>
+          <p>String to parse: JOHN0000MICHAEL0009994567</p>
+          <button id="myBtn" class="btn btn-round btn-primary">
+            Parse!
+          </button>
+        </form>
+      </span>
+      <span id="rightBox" style="float: right;">
+        <form id="parseFormV2" method="post" action="/api/v2/parse">
+          <h1>Parser for V2</h1>
+          <p>String to parse: JOHN0000MICHAEL0009994567</p>
+          <button id="myBtnV2" class="btn btn-round btn-primary" value="submit">
+            Parse!
+          </button>
+        </form>
+      </span>
     </div>
 
     <script
