@@ -50,32 +50,22 @@ class ParseString implements StringToParse {
   }
 }
 
-app
-  .route("/api/v1/parse")
-  .get((req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname + "/index.html"));
-  })
-  .post((req: Request, res: Response) => {
-    try {
-      var newRequest: ParseString = new ParseString(testString);
-      res.json(newRequest.v1Parse());
-    } catch (err) {
-      console.log(err.message);
-    }
-  });
-
-app
-  .route("/api/v2/parse")
-  .get((req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname + "/index.html"));
-  })
-  .post((req: Request, res: Response) => {
-    try {
-      var newRequest: ParseString = new ParseString(testString);
-      res.json(newRequest.v2Parse());
-    } catch (err) {
-      console.log(err.message);
-    }
-  });
+app.get("/", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname + "/index.html"));
+});
+app.route("/api/v1/parse").post((req: Request, res: Response) => {
+  try {
+    res.json(new ParseString(testString).v1Parse());
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+app.route("/api/v2/parse").post((req: Request, res: Response) => {
+  try {
+    res.json(new ParseString(testString).v2Parse());
+  } catch (err) {
+    console.log(err.message);
+  }
+});
 
 app.listen(8080);
