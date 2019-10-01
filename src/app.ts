@@ -69,3 +69,5 @@ app.route("/api/v2/parse").post((req: Request, res: Response) => {
 });
 
 app.listen(8080);
+
+export default ParseString;

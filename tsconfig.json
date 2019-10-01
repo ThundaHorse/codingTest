@@ -9,10 +9,10 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": ".",
-    "lib": ["dom", "es6"],
+    "lib": ["dom", "es6", "es2016"],
     "paths": {
       "*": ["node_modules/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "jest.config.js"]
 }
